@@ -1,15 +1,10 @@
-% найти количество предложений в строке и количество слов в каждом предложении
- 
+count__(St, N, R):-
+	split_string(St, ".?!", "~n~w?!., ", L),
+	length(L, N),
+	count__(L, R).
 
-count_words_and_sentences(St, RNum, RList):-
-    split_string(St, ".?!", "~n~w?!., ", L),
-    length(L, RNum),
-    count_words_in_list(L, R),
-    reverse(R, RList).
-
-
-count_words_in_list([], _).
-count_words_in_list([H|T], RList):-
-    split_string(H, " ", ",- ", L),
-    length(L, Num),
-    count_words_in_list(T, [Num|RList]).
+count__([], []).
+count__([H|T], [N|R]):-
+	split_string(H, " ", ",- ", L),
+	length(L, N),
+	count__(T, R).
